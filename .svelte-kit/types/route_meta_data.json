@@ -1,0 +1,11 @@
+{
+	"/": [],
+	"/drinks": [
+		"src/routes/drinks/+page.server.ts",
+		"src/routes/drinks/+server.ts"
+	],
+	"/drinks/[drinkId]": [
+		"src/routes/drinks/[drinkId]/+page.server.ts",
+		"src/routes/drinks/[drinkId]/+server.ts"
+	]
+}
