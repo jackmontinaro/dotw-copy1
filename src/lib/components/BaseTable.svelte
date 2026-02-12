@@ -3,6 +3,7 @@
     import DrinkRow from "$lib/components/DrinkRow.svelte";
     import TableSorter from "$lib/components/TableSorter.svelte";
     import type { Drink } from "$lib/api/drinks";
+    import { featureFlags } from "$lib/featureFlags";
 
     interface Props {
         drinks: Drink[];
@@ -12,7 +13,9 @@
     let { drinks = $bindable(), displayedUser = $bindable() }: Props = $props();
 
     function onUserClick(user: string) {
-        displayedUser = user;
+        if (featureFlags.show_user_tables) {
+            displayedUser = user;
+        }
     }
 </script>
 
@@ -28,7 +31,7 @@
         <TableHeadCell class="w-44">
             <div class="flex gap-1 items-center">
                 <Button onclick={() => onUserClick("matt")}>
-                    <P class="text-black text-sm cursor-pointer">Matt</P>
+                    <P class={`text-black text-sm ${featureFlags.show_user_tables ? 'cursor-pointer' : 'cursor-default'}`}>Matt</P>
                 </Button>
                 <TableSorter bind:drinks field={"mOverallScore"} />
             </div>
@@ -36,7 +39,7 @@
         <TableHeadCell class="w-44">
             <div class="flex gap-1 items-center">
                 <Button onclick={() => onUserClick("jack")}>
-                    <P class="text-black text-sm cursor-pointer">Jack</P>
+                    <P class={`text-black text-sm ${featureFlags.show_user_tables ? 'cursor-pointer' : 'cursor-default'}`}>Jack</P>
                 </Button>
                 <TableSorter bind:drinks field={"jOverallScore"} />
             </div>
@@ -44,7 +47,7 @@
         <TableHeadCell class="w-44">
             <div class="flex gap-1 items-center">
                 <Button onclick={() => onUserClick("hayden")}>
-                    <P class="text-black text-sm cursor-pointer">Hayden</P>
+                    <P class={`text-black text-sm ${featureFlags.show_user_tables ? 'cursor-pointer' : 'cursor-default'}`}>Hayden</P>
                 </Button>
                 <TableSorter bind:drinks field={"hOverallScore"} />
             </div>
